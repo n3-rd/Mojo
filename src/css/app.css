@@ -1,0 +1,48 @@
+@font-face {
+  font-family: dmsansRegular;
+  src: url("DMSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: dmsansMedium;
+  src: url("DMSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: dmsansBold;
+  src: url("DMSans-Bold.ttf");
+}
+
+.text-brand {
+  color: #e8c44b !important;
+}
+
+.bg-brand {
+  background: #e8c44b !important;
+}
+
+.font-regular {
+  font-family: dmsansRegular;
+}
+
+.font-medium {
+  font-family: dmsansMedium;
+}
+
+.font-bold {
+  font-family: dmsansBold;
+}
+
+body {
+  background-color: #191919;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+.text-white {
+  color: #f2f2f2;
+}
+/*# sourceMappingURL=app.css.map */
