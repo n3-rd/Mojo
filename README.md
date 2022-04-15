@@ -1,6 +1,6 @@
-# Jeje (jeje)
+# Mojo
 
-An app for making music player screenshots
+A web app to get similar artists
 
 ## Install the dependencies
 
