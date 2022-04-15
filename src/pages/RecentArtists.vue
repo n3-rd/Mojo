@@ -61,15 +61,17 @@
                   clickable
                   v-ripple
                   @click="
-                    storeLocalArtist(artist.strArtist, artist.strBiographyEN)
+                    storeLocalArtist(
+                      artist.strArtist,
+                      artist.strBiographyEN,
+                      artist.strArtistThumb
+                    )
                   "
                 >
                   <q-item-section avatar>
-                    <q-avatar
-                      color="teal"
-                      text-color="white"
-                      icon="bluetooth"
-                    />
+                    <q-avatar>
+                      <img :src="artist.strArtistThumb" />
+                    </q-avatar>
                   </q-item-section>
 
                   <q-item-section class="text-white">{{
@@ -172,14 +174,22 @@ export default {
   },
   methods: {
     searchArtist: function () {
-      fetch("http://localhost:1987/search.json")
+      fetch(
+        `https://theaudiodb.com/api/v1/json/2/search.php?s=${this.ArtistSearchtext}`
+      )
         .then((response) => response.json())
-        .then((data) => (this.artistsSearchResults = data.artists));
-      console.log(this.artistsSearchResults);
+        .then((data) => {
+          this.artistsSearchResults = data.artists;
+        });
+      // fetch("http://localhost:1987/search.json")
+      //   .then((response) => response.json())
+      //   .then((data) => (this.artistsSearchResults = data.artists));
+      // console.log(this.artistsSearchResults);
     },
-    storeLocalArtist: function (artist, bio) {
+    storeLocalArtist: function (artist, bio, cutout) {
       localStorage.setItem("localArtist", artist);
       localStorage.setItem("localArtistBio", bio);
+      localStorage.setItem("localArtistCutout", cutout);
     },
   },
 };
