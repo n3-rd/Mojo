@@ -1,8 +1,8 @@
 {
-  "name": "jeje",
+  "name": "Mojo",
   "version": "0.0.1",
-  "description": "An app for making music player screenshots",
-  "productName": "Jeje",
+  "description": "A web app to get similar artists",
+  "productName": "Mojo",
   "author": "n3-rd",
   "private": true,
   "scripts": {
