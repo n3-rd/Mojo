@@ -34,7 +34,6 @@
                 v-model="ArtistSearchtext"
                 color="text-main"
                 :input-style="{ color: '#f2f2f2' }"
-                @keypress="searchArtist"
               />
             </div>
             <div class="col-2">
@@ -55,27 +54,30 @@
               <div
                 class="q-ml-md"
                 v-for="artist in artistsSearchResults"
-                :key="artist.idArtist"
+                :key="artist.id"
               >
                 <q-item
                   clickable
                   v-ripple
                   @click="
                     storeLocalArtist(
-                      artist.strArtist,
-                      artist.strBiographyEN,
-                      artist.strArtistThumb
+                      artist.name,
+                      artist.images[1].url,
+                      artist.id
                     )
                   "
                 >
                   <q-item-section avatar>
                     <q-avatar>
-                      <img :src="artist.strArtistThumb" />
+                      <img
+                        v-if="artist.images.length"
+                        :src="artist.images[1].url"
+                      />
                     </q-avatar>
                   </q-item-section>
 
                   <q-item-section class="text-white">{{
-                    artist.strArtist
+                    artist.name
                   }}</q-item-section>
                 </q-item>
               </div>
@@ -175,21 +177,17 @@ export default {
   methods: {
     searchArtist: function () {
       fetch(
-        `https://theaudiodb.com/api/v1/json/2/search.php?s=${this.ArtistSearchtext}`
+        `https://n3rd-last-fm-api.glitch.me/searchArtist?artist=${this.ArtistSearchtext}`
       )
         .then((response) => response.json())
         .then((data) => {
-          this.artistsSearchResults = data.artists;
+          this.artistsSearchResults = data.body.artists.items;
         });
-      // fetch("http://localhost:1987/search.json")
-      //   .then((response) => response.json())
-      //   .then((data) => (this.artistsSearchResults = data.artists));
-      // console.log(this.artistsSearchResults);
     },
-    storeLocalArtist: function (artist, bio, cutout) {
+    storeLocalArtist: function (artist, cutout, id) {
       localStorage.setItem("localArtist", artist);
-      localStorage.setItem("localArtistBio", bio);
       localStorage.setItem("localArtistCutout", cutout);
+      localStorage.setItem("localArtistId", id);
     },
   },
 };
