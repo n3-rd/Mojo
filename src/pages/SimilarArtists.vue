@@ -45,7 +45,7 @@
           <q-card-section class="bg-bgblack">
             <div class="artist-bio text-white q-px-lg q-mt-md">
               <div v-for="track in artistTracks" :key="track.id">
-                <q-item clickable v-ripple>
+                <q-item>
                   <q-item-section avatar>
                     <q-avatar size="lg">
                       <img
@@ -55,8 +55,28 @@
                     </q-avatar>
                   </q-item-section>
 
-                  <q-item-section class="similar-artist q-py-md q-px-md">
+                  <q-item-section
+                    class="similar-artist q-py-md q-px-md ellipsis"
+                    :lines="1"
+                  >
                     {{ track.name }}
+                  </q-item-section>
+
+                  <q-item-section clickable side>
+                    <a
+                      :href="track.external_urls.spotify"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <q-icon name="link" color="brand" />
+                    </a>
+                  </q-item-section>
+                  <q-item-section clickable side v-if="track.preview_url">
+                    <q-icon
+                      name="play_arrow"
+                      color="brand"
+                      @click="playTrackPreview(track.preview_url)"
+                    />
                   </q-item-section>
                 </q-item>
               </div>
@@ -122,12 +142,18 @@
     }
     .similar-artist {
       font-size: 1.3rem;
+      width: 40%;
+      // overflow-x: clip;
+      // overflow-x: hidden;
+      overflow: hidden;
     }
   }
 }
 </style>
 
 <script>
+import { Howl, Howler } from "howler";
+
 export default {
   data() {
     return {
@@ -191,6 +217,15 @@ export default {
         .then((data) => {
           this.artistTracks = data.tracks;
         });
+    },
+    playTrackPreview: function (track) {
+      var sound = new Howl({
+        src: [track],
+        html5: true,
+      });
+      Howler.stop();
+
+      sound.play();
     },
   },
   mounted() {
