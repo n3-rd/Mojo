@@ -68,7 +68,7 @@
                   "
                 >
                   <q-item-section avatar>
-                    <q-avatar>
+                    <q-avatar size="lg">
                       <img
                         v-if="artist.images.length"
                         :src="artist.images[1].url"

@@ -23,12 +23,12 @@
         label="Bio"
         header-class="text-brand"
         class="q-px-md"
-        v-if="localArtistBio"
+        v-if="this.artistBio !== String"
       >
         <q-card>
           <q-card-section class="bg-bgblack">
             <div class="artist-bio text-white q-px-lg q-mt-md">
-              {{ localArtistBio }}
+              {{ this.artistBio }}
             </div>
           </q-card-section>
         </q-card>
@@ -43,11 +43,16 @@
             v-for="similarArtist in similarArtists"
             :key="similarArtist.Name"
           >
-            <q-item
-              clickable
-              v-ripple
-              @click="setNewArtist(similarArtist.name)"
-            >
+            <q-item clickable v-ripple @click="setNewArtist(similarArtist.id)">
+              <q-item-section avatar>
+                <q-avatar size="lg">
+                  <img
+                    v-if="similarArtist.images.length"
+                    :src="similarArtist.images[1].url"
+                  />
+                </q-avatar>
+              </q-item-section>
+
               <q-item-section class="similar-artist q-py-md q-px-md">{{
                 similarArtist.name
               }}</q-item-section>
@@ -96,48 +101,58 @@ export default {
   data() {
     return {
       localArtist: localStorage.getItem("localArtist"),
-      localArtistBio: localStorage.getItem("localArtistBio"),
+      localArtistId: localStorage.getItem("localArtistId"),
       localArtistCutout: localStorage.getItem("localArtistCutout"),
+      artistBio: "",
       similarArtists: [],
     };
   },
   methods: {
     getSimilarArtists: function () {
       fetch(
-        `https://n3rd-last-fm-api.glitch.me/getSimilarArtists?artist=${this.localArtist}`
+        `http://n3rd-last-fm-api.glitch.me/getSimilarArtists?artistId=${this.localArtistId}`
       )
         // fetch("http://localhost:1987/similar.json")
         .then((response) => response.json())
-        .then((data) => (this.similarArtists = data.artist))
+        .then((data) => (this.similarArtists = data.artists))
         .then((data) => console.log(data));
     },
-    setNewArtist: function (newArtist) {
-      fetch(`https://theaudiodb.com/api/v1/json/2/search.php?s=${newArtist}`)
+    setNewArtist: function (artistId) {
+      fetch(
+        `http://n3rd-last-fm-api.glitch.me/getArtistDetails?artistId=${artistId}`
+      )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.artists[0].strArtist);
+          console.log(data);
           // this.artistsSearchResults = data.artists;
-          localStorage.setItem("localArtist", data.artists[0].strArtist);
-          localStorage.setItem(
-            "localArtistBio",
-            data.artists[0].strBiographyEN
-          );
-          localStorage.setItem(
-            "localArtistCutout",
-            data.artists[0].strArtistThumb
-          );
+          localStorage.setItem("localArtist", data.name);
+          // localStorage.setItem(
+          //   "localArtistBio",
+          //   data.artists[0].strBiographyEN
+          // );
+          localStorage.setItem("localArtistCutout", data.images[1].url);
 
-          this.localArtist = data.artists[0].strArtist;
-          this.localArtistBio = data.artists[0].strBiographyEN;
-          this.localArtistCutout = data.artists[0].strArtistThumb;
+          this.localArtist = data.name;
+          this.localArtistCutout = data.images[1].url;
+          this.localArtistId = data.id;
 
           this.$forceUpdate();
           this.getSimilarArtists();
+          this.getArtistBio();
+        });
+    },
+    getArtistBio: function () {
+      fetch(
+        `http://n3rd-last-fm-api.glitch.me/getArtistBio?artist=${this.localArtist}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.artistBio = data.bio.summary;
         });
     },
   },
   mounted() {
-    // setTimeout(function () {
+    this.getArtistBio();
     this.getSimilarArtists();
     // }, 2000);
   },
