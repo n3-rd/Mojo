@@ -36,7 +36,7 @@
 
       <q-expansion-item
         group="tracks"
-        icon="explore"
+        icon="music_note"
         label="Tracks"
         header-class="text-brand"
         class="q-px-md"
