@@ -34,6 +34,37 @@
         </q-card>
       </q-expansion-item>
 
+      <q-expansion-item
+        group="tracks"
+        icon="explore"
+        label="Tracks"
+        header-class="text-brand"
+        class="q-px-md"
+      >
+        <q-card>
+          <q-card-section class="bg-bgblack">
+            <div class="artist-bio text-white q-px-lg q-mt-md">
+              <div v-for="track in artistTracks" :key="track.id">
+                <q-item clickable v-ripple>
+                  <q-item-section avatar>
+                    <q-avatar size="lg">
+                      <img
+                        v-if="track.album.images.length"
+                        :src="track.album.images[1].url"
+                      />
+                    </q-avatar>
+                  </q-item-section>
+
+                  <q-item-section class="similar-artist q-py-md q-px-md">
+                    {{ track.name }}
+                  </q-item-section>
+                </q-item>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+
       <div class="similar-artists">
         <div class="similar-artist-title text-white q-ml-lg q-py-md">
           Similar Artists
@@ -104,6 +135,7 @@ export default {
       localArtistId: localStorage.getItem("localArtistId"),
       localArtistCutout: localStorage.getItem("localArtistCutout"),
       artistBio: "",
+      artistTracks: [],
       similarArtists: [],
     };
   },
@@ -139,6 +171,7 @@ export default {
           this.$forceUpdate();
           this.getSimilarArtists();
           this.getArtistBio();
+          this.getArtistTracks();
         });
     },
     getArtistBio: function () {
@@ -150,10 +183,20 @@ export default {
           this.artistBio = data.bio.summary;
         });
     },
+    getArtistTracks: function () {
+      fetch(
+        `http://n3rd-last-fm-api.glitch.me/getArtistTracks?artistId=${this.localArtistId}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.artistTracks = data.tracks;
+        });
+    },
   },
   mounted() {
     this.getArtistBio();
     this.getSimilarArtists();
+    this.getArtistTracks();
     // }, 2000);
   },
 };
