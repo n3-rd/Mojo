@@ -142,16 +142,16 @@ export default {
   methods: {
     getSimilarArtists: function () {
       fetch(
-        `http://n3rd-last-fm-api.glitch.me/getSimilarArtists?artistId=${this.localArtistId}`
+        `https://n3rd-last-fm-api.glitch.me/getSimilarArtists?artistId=${this.localArtistId}`
       )
-        // fetch("http://localhost:1987/similar.json")
+        // fetch("https://localhost:1987/similar.json")
         .then((response) => response.json())
         .then((data) => (this.similarArtists = data.artists))
         .then((data) => console.log(data));
     },
     setNewArtist: function (artistId) {
       fetch(
-        `http://n3rd-last-fm-api.glitch.me/getArtistDetails?artistId=${artistId}`
+        `https://n3rd-last-fm-api.glitch.me/getArtistDetails?artistId=${artistId}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -176,7 +176,7 @@ export default {
     },
     getArtistBio: function () {
       fetch(
-        `http://n3rd-last-fm-api.glitch.me/getArtistBio?artist=${this.localArtist}`
+        `https://n3rd-last-fm-api.glitch.me/getArtistBio?artist=${this.localArtist}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -185,7 +185,7 @@ export default {
     },
     getArtistTracks: function () {
       fetch(
-        `http://n3rd-last-fm-api.glitch.me/getArtistTracks?artistId=${this.localArtistId}`
+        `https://n3rd-last-fm-api.glitch.me/getArtistTracks?artistId=${this.localArtistId}`
       )
         .then((response) => response.json())
         .then((data) => {
