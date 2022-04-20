@@ -30,7 +30,8 @@
             <div class="col-10">
               <q-input
                 class="text-white q-px-md"
-                filled
+                outlined
+                dark
                 v-model="ArtistSearchtext"
                 color="text-main"
                 :input-style="{ color: '#f2f2f2' }"
@@ -147,7 +148,7 @@ body
   > div
   > div
   > div {
-  background-color: #0d0d0d;
+  // background-color: #0d0d0d;
   color: #f2f2f2;
 }
 .search-dialog {
