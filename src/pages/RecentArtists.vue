@@ -51,6 +51,11 @@
 
         <q-card-section class="q-pt-none">
           <q-list bordered>
+            <div v-if="searchIndicator" class="artists-search-indicator">
+              <div class="artists-search-indicator-child"></div>
+              <q-spinner-tail color="brand" size="xl" />
+            </div>
+
             <router-link to="/SimilarArtists">
               <div
                 class="q-ml-md"
@@ -165,6 +170,14 @@ body
     border-radius: 15px;
   }
 }
+.artists-search-indicator {
+  // center child in the middle
+  width: 90vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 <script>
 export default {
@@ -173,15 +186,18 @@ export default {
       searchDialog: false,
       ArtistSearchtext: "",
       artistsSearchResults: [],
+      searchIndicator: false,
     };
   },
   methods: {
     searchArtist: function () {
+      this.searchIndicator = true;
       fetch(
         `https://n3rd-last-fm-api.glitch.me/searchArtist?artist=${this.ArtistSearchtext}`
       )
         .then((response) => response.json())
         .then((data) => {
+          this.searchIndicator = false;
           this.artistsSearchResults = data.body.artists.items;
         });
     },
