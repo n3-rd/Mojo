@@ -75,7 +75,7 @@
                     <q-icon
                       name="play_arrow"
                       color="brand"
-                      @click="playTrackPreview(track.preview_url)"
+                      @click="playTrackPreview(track.preview_url, track.name)"
                     />
                   </q-item-section>
                 </q-item>
@@ -111,6 +111,24 @@
           </div>
         </q-list>
       </div>
+    </div>
+
+    <div>
+      <q-dialog v-model="playing" position="bottom" persistent>
+        <q-card style="width: 350px">
+          <!-- <q-linear-progress :value="0.6" color="brand" /> -->
+
+          <q-card-section class="row items-center no-wrap bg-brand">
+            <div>
+              <div class="text-weight-bold">{{ localPlayingSongName }}</div>
+            </div>
+
+            <q-space />
+
+            <q-btn flat round icon="stop" v-close-popup @click="stopSound" />
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </div>
   </div>
 </template>
@@ -163,6 +181,9 @@ export default {
       artistBio: "",
       artistTracks: [],
       similarArtists: [],
+      playing: false,
+      playingDialog: true,
+      localPlayingSongName: localStorage.getItem("localPlayingSongName"),
     };
   },
   methods: {
@@ -218,7 +239,10 @@ export default {
           this.artistTracks = data.tracks;
         });
     },
-    playTrackPreview: function (track) {
+    playTrackPreview: function (track, songName) {
+      this.playing = true;
+      this.localPlayingSongName = songName;
+      localStorage.setItem("localPlayingSongName", songName);
       var sound = new Howl({
         src: [track],
         html5: true,
@@ -227,12 +251,36 @@ export default {
 
       sound.play();
     },
+    stopSound: function () {
+      Howler.stop();
+      this.playing = false;
+    },
   },
   mounted() {
     this.getArtistBio();
     this.getSimilarArtists();
     this.getArtistTracks();
     // }, 2000);
+  },
+  updated() {
+    // check if sound is playing
+    // if (Howler.playing()) {
+    //   this.playing = true;
+    // } else {
+    //   this.playing = false;
+    // }
+    // check if tab is emmiting audio
+    // if (Howler.mute()) {
+    //   this.playing = false;
+    // } else {
+    //   this.playing = true;
+    // }
+    // check if tab is emmiting audio with vanilla javascript
+    // if (document.hasFocus()) {
+    //   this.playing = true;
+    // } else {
+    //   this.playing = false;
+    // }
   },
 };
 </script>
