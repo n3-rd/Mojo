@@ -37,7 +37,7 @@
       <q-expansion-item
         group="tracks"
         icon="music_note"
-        label="Tracks"
+        label="Top Tracks"
         header-class="text-brand"
         class="q-px-md"
       >
@@ -227,7 +227,7 @@ export default {
       )
         .then((response) => response.json())
         .then((data) => {
-          this.artistBio = data.bio.summary;
+          this.artistBio = data.bio.content;
         });
     },
     getArtistTracks: function () {
