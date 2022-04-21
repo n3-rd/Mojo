@@ -11,79 +11,95 @@
     </q-toolbar>
 
     <div class="artist">
-      <div class="artist-image q-mt-md">
-        <!-- <img src="~/assets/2095.jpg" alt="artist image" :ratio="16 / 9" /> -->
-        <img :src="localArtistCutout" alt="artist image" :ratio="16 / 9" />
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="artist-image q-mt-md">
+              <!-- <img src="~/assets/2095.jpg" alt="artist image" :ratio="16 / 9" /> -->
+              <img
+                :src="localArtistCutout"
+                alt="artist image"
+                :ratio="13 / 6"
+              />
+            </div>
+            <div class="artist-name text-white q-mt-md">{{ localArtist }}</div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 artist-details-grid">
+            <q-expansion-item
+              group="somegroup"
+              icon="explore"
+              label="Bio"
+              header-class="text-brand"
+              class="q-px-md"
+              v-if="this.artistBio !== String"
+            >
+              <q-card>
+                <q-card-section class="bg-bgblack">
+                  <div class="artist-bio text-white q-px-lg q-mt-md">
+                    {{ this.artistBio }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+
+            <q-expansion-item
+              group="tracks"
+              icon="music_note"
+              label="Top Tracks"
+              header-class="text-brand"
+              class="q-px-md"
+            >
+              <q-card>
+                <q-card-section class="bg-bgblack">
+                  <div class="artist-bio text-white q-px-lg q-mt-md">
+                    <div v-for="track in artistTracks" :key="track.id">
+                      <q-item>
+                        <q-item-section avatar>
+                          <q-avatar size="lg">
+                            <img
+                              v-if="track.album.images.length"
+                              :src="track.album.images[1].url"
+                            />
+                          </q-avatar>
+                        </q-item-section>
+
+                        <q-item-section
+                          class="similar-artist q-py-md q-px-md ellipsis"
+                          :lines="1"
+                        >
+                          {{ track.name }}
+                        </q-item-section>
+
+                        <q-item-section clickable side>
+                          <a
+                            :href="track.external_urls.spotify"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <q-icon name="link" color="brand" />
+                          </a>
+                        </q-item-section>
+                        <q-item-section clickable side v-if="track.preview_url">
+                          <q-icon
+                            name="play_arrow"
+                            color="brand"
+                            @click="
+                              playTrackPreview(track.preview_url, track.name)
+                            "
+                          />
+                        </q-item-section>
+                      </q-item>
+                    </div>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+          </div>
+        </div>
       </div>
-      <div class="artist-name text-white q-mt-md">{{ localArtist }}</div>
+
       <!-- <div v-if="localArtistBio !== String">bbb</div> -->
-      <q-expansion-item
-        group="somegroup"
-        icon="explore"
-        label="Bio"
-        header-class="text-brand"
-        class="q-px-md"
-        v-if="this.artistBio !== String"
-      >
-        <q-card>
-          <q-card-section class="bg-bgblack">
-            <div class="artist-bio text-white q-px-lg q-mt-md">
-              {{ this.artistBio }}
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-
-      <q-expansion-item
-        group="tracks"
-        icon="music_note"
-        label="Top Tracks"
-        header-class="text-brand"
-        class="q-px-md"
-      >
-        <q-card>
-          <q-card-section class="bg-bgblack">
-            <div class="artist-bio text-white q-px-lg q-mt-md">
-              <div v-for="track in artistTracks" :key="track.id">
-                <q-item>
-                  <q-item-section avatar>
-                    <q-avatar size="lg">
-                      <img
-                        v-if="track.album.images.length"
-                        :src="track.album.images[1].url"
-                      />
-                    </q-avatar>
-                  </q-item-section>
-
-                  <q-item-section
-                    class="similar-artist q-py-md q-px-md ellipsis"
-                    :lines="1"
-                  >
-                    {{ track.name }}
-                  </q-item-section>
-
-                  <q-item-section clickable side>
-                    <a
-                      :href="track.external_urls.spotify"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <q-icon name="link" color="brand" />
-                    </a>
-                  </q-item-section>
-                  <q-item-section clickable side v-if="track.preview_url">
-                    <q-icon
-                      name="play_arrow"
-                      color="brand"
-                      @click="playTrackPreview(track.preview_url, track.name)"
-                    />
-                  </q-item-section>
-                </q-item>
-              </div>
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
 
       <div class="similar-artists">
         <div class="similar-artist-title text-white q-ml-lg q-py-md">
@@ -143,6 +159,12 @@
       margin: 0 auto;
       border-radius: 15px;
     }
+    // set media query for desktop
+    @media (min-width: 768px) {
+      img {
+        width: 66%;
+      }
+    }
   }
   .artist-name {
     text-align: center;
@@ -164,6 +186,32 @@
       // overflow-x: clip;
       // overflow-x: hidden;
       overflow: hidden;
+    }
+  }
+  // set mrdia query for mobile
+  @media (max-width: 767px) {
+    .artist-image {
+      img {
+        width: 88%;
+      }
+    }
+    .artist-name {
+      font-size: 2.5rem;
+    }
+    .artist-bio {
+      font-size: 1.2rem;
+    }
+    .similar-artists {
+      .similar-artist-title {
+        font-size: 1.5rem;
+      }
+      .similar-artist {
+        font-size: 1.3rem;
+        width: 100%;
+      }
+    }
+    .artist-details-grid {
+      width: 100%;
     }
   }
 }

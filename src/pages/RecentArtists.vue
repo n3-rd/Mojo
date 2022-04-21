@@ -68,7 +68,7 @@
                   @click="
                     storeLocalArtist(
                       artist.name,
-                      artist.images[1].url,
+                      artist.images[0].url,
                       artist.id
                     )
                   "
@@ -77,7 +77,7 @@
                     <q-avatar size="lg">
                       <img
                         v-if="artist.images.length"
-                        :src="artist.images[1].url"
+                        :src="artist.images[0].url"
                       />
                     </q-avatar>
                   </q-item-section>
