@@ -257,10 +257,10 @@ export default {
           //   "localArtistBio",
           //   data.artists[0].strBiographyEN
           // );
-          localStorage.setItem("localArtistCutout", data.images[1].url);
+          localStorage.setItem("localArtistCutout", data.images[0].url);
 
           this.localArtist = data.name;
-          this.localArtistCutout = data.images[1].url;
+          this.localArtistCutout = data.images[0].url;
           this.localArtistId = data.id;
 
           this.$forceUpdate();
