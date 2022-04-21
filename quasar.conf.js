@@ -142,7 +142,7 @@ module.exports = configure(function (ctx) {
       manifest: {
         name: `Mojo`,
         short_name: `Mojo`,
-        description: `A web app to get similar artists`,
+        description: `A web app that helps you know your artists and their music`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#191919",

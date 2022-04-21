@@ -1,6 +1,16 @@
 # Mojo
 
-A web app to get similar artists
+A web app that helps you know your artists and their music
+
+## Demo
+
+![ Demo](https://i.ibb.co/VHXFqGf/mojomusic-netlify-app.png "demo image")
+
+https://mojomusic.netlify.app/
+
+## Deployment
+
+To deploy this project run
 
 ## Install the dependencies
 
