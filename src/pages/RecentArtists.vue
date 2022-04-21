@@ -236,7 +236,7 @@ export default {
       setInterval(async () => {
         const result = await checkOnlineStatus();
         this.noInternetConn = result ? true : false;
-      }, 30000);
+      }, 3000);
     },
   },
   mounted() {
