@@ -1894,6 +1894,11 @@
     "inherits" "^2.0.4"
     "readable-stream" "^3.4.0"
 
+"bluebird@^3.7.1":
+  "integrity" "sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg=="
+  "resolved" "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
+  "version" "3.7.2"
+
 "body-parser@1.19.1":
   "integrity" "sha512-8ljfQi5eBk8EJfECMrgqNGWPEY5jWP+1IzkzkGdFFEwFQZZyaZ21UqdaHktgiMlH0xLHqIFtE/u2OYE5dOtViA=="
   "resolved" "https://registry.npmjs.org/body-parser/-/body-parser-1.19.1.tgz"
@@ -2077,6 +2082,13 @@
   "integrity" "sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA=="
   "resolved" "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   "version" "0.7.0"
+
+"check-internet-connected@^2.0.5":
+  "integrity" "sha512-bvS2SCWQGdwWqRS/hlzBKign6AjxZQtBGop/UnFAsBZoDZwSWjoJfcU5MvY+uxtWL3rVOxFIoszugaNz0C5mNg=="
+  "resolved" "https://registry.npmjs.org/check-internet-connected/-/check-internet-connected-2.0.5.tgz"
+  "version" "2.0.5"
+  dependencies:
+    "bluebird" "^3.7.1"
 
 "chokidar@^3.4.2", "chokidar@^3.5.3", "chokidar@>=3.0.0 <4.0.0", "chokidar@3.5.3":
   "integrity" "sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw=="
@@ -5949,6 +5961,11 @@
     "chalk" "^4.1.0"
     "hash-sum" "^2.0.0"
     "loader-utils" "^2.0.0"
+
+"vue-online-prop@^1.0.1":
+  "integrity" "sha512-kh7B3rFXEvrMkVxDBBqiKsFhpGjOqpOEkC4UPEqjqHLfDYT3GtncnyKL1kRWby4Qi3bT2aerrQje7wPQ5g6Uew=="
+  "resolved" "https://registry.npmjs.org/vue-online-prop/-/vue-online-prop-1.0.1.tgz"
+  "version" "1.0.1"
 
 "vue-router@^4.0.0", "vue-router@^4.0.12":
   "integrity" "sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw=="

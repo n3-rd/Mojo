@@ -11,6 +11,10 @@
       </div>
     </div>
 
+    <div v-if="this.noInternetConn == false">
+      <NoInternet />
+    </div>
+
     <q-dialog
       v-model="searchDialog"
       maximized
@@ -180,13 +184,24 @@ body
 }
 </style>
 <script>
+// Vue.use(VueOnlineProp);
+
+import NoInternet from "../components/NoInternet.vue";
+// import checkInternetConnected from "check-internet-connected";
+// const checkInternetConnected = require("check-internet-connected");
+
 export default {
+  name: "RecentArtists",
+  components: {
+    NoInternet,
+  },
   data() {
     return {
       searchDialog: false,
       ArtistSearchtext: "",
       artistsSearchResults: [],
       searchIndicator: false,
+      noInternetConn: true,
     };
   },
   methods: {
@@ -206,6 +221,29 @@ export default {
       localStorage.setItem("localArtistCutout", cutout);
       localStorage.setItem("localArtistId", id);
     },
+    checkInternet: function () {
+      const checkOnlineStatus = async () => {
+        try {
+          const online = await fetch(
+            "https://n3rd-last-fm-api.glitch.me/getStatus"
+          );
+          return online.status >= 200 && online.status < 300; // either true or false
+        } catch (err) {
+          return false; // definitely offline
+        }
+      };
+
+      setInterval(async () => {
+        const result = await checkOnlineStatus();
+        this.noInternetConn = result ? true : false;
+      }, 30000);
+    },
+  },
+  mounted() {
+    // this.checkInternet();
+    setInterval(() => {
+      this.checkInternet();
+    }, 3000);
   },
 };
 </script>
