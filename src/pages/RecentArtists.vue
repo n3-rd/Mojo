@@ -73,7 +73,9 @@
                     storeLocalArtist(
                       artist.name,
                       artist.images[0].url,
-                      artist.id
+                      artist.id,
+                      artist.followers.total,
+                      artist.popularity
                     )
                   "
                 >
@@ -216,10 +218,12 @@ export default {
           this.artistsSearchResults = data.body.artists.items;
         });
     },
-    storeLocalArtist: function (artist, cutout, id) {
+    storeLocalArtist: function (artist, cutout, id, likes, popularity) {
       localStorage.setItem("localArtist", artist);
       localStorage.setItem("localArtistCutout", cutout);
       localStorage.setItem("localArtistId", id);
+      localStorage.setItem("localArtistLikes", likes);
+      localStorage.setItem("localArtistPopularity", popularity);
     },
     checkInternet: function () {
       const checkOnlineStatus = async () => {
@@ -236,14 +240,14 @@ export default {
       setInterval(async () => {
         const result = await checkOnlineStatus();
         this.noInternetConn = result ? true : false;
-      }, 3000);
+      }, 30000);
     },
   },
   mounted() {
-    // this.checkInternet();
+    this.checkInternet();
     setInterval(() => {
       this.checkInternet();
-    }, 3000);
+    }, 30000);
   },
 };
 </script>

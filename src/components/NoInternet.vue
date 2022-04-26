@@ -12,9 +12,10 @@
         navigation
         padding
         dark
+        infinite
         :autoplay="2500"
         height="200px"
-        class="bg-white shadow-1 rounded-borders"
+        class="bg-black shadow-1 rounded-borders"
       >
         <q-carousel-slide :name="1" class="column no-wrap flex-center bg-black">
           <q-icon name="wifi_off" color="brand" size="56px" />

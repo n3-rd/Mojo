@@ -26,6 +26,25 @@
           </div>
 
           <div class="col-sm-12 col-md-6 artist-details-grid">
+            <div class="artist-stats text-white q-my-lg">
+              <div class="row justify-center">
+                <div class="col-6">
+                  <span class="artist-likes">
+                    <q-icon name="favorite" size="xl" color="pink" />
+                    <br />
+                    {{ localArtistLikes }}
+                  </span>
+                </div>
+                <div class="col-6">
+                  <span class="artist-popularity">
+                    <q-icon name="show_chart" size="xl" color="green" />
+                    <br />
+                    {{ localArtistPopularity }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
             <q-expansion-item
               group="somegroup"
               icon="explore"
@@ -226,6 +245,8 @@ export default {
       localArtist: localStorage.getItem("localArtist"),
       localArtistId: localStorage.getItem("localArtistId"),
       localArtistCutout: localStorage.getItem("localArtistCutout"),
+      localArtistLikes: localStorage.getItem("localArtistLikes"),
+      localArtistPopularity: localStorage.getItem("localArtistPopularity"),
       artistBio: "",
       artistTracks: [],
       similarArtists: [],
@@ -262,6 +283,8 @@ export default {
           this.localArtist = data.name;
           this.localArtistCutout = data.images[0].url;
           this.localArtistId = data.id;
+          this.localArtistLikes = data.followers.total;
+          this.localArtistPopularity = data.popularity;
 
           this.$forceUpdate();
           this.getSimilarArtists();
