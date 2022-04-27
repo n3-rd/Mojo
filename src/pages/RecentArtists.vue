@@ -4,7 +4,7 @@
       <q-toolbar-title class="title q-ml-md"> Recent Artists </q-toolbar-title>
     </q-toolbar>
 
-    <div class="empty text-center">
+    <div class="empty text-center" v-if="localHistory.length == 0">
       <div class="bin-icon absolute-center">
         <q-icon name="delete_outline" size="105px" />
         <div class="empty-text">Nothing Here Yet!</div>
@@ -14,6 +14,46 @@
     <div v-if="this.noInternetConn == false">
       <NoInternet />
     </div>
+
+    <!-- make a v-for list for localHistory -->
+    <router-link to="/SimilarArtists">
+      <div
+        class="q-ml-md"
+        v-for="localArtist in localHistory"
+        :key="localArtist"
+      >
+        <q-item
+          clickable
+          v-ripple
+          @click="
+            storeLocalArtist(
+              localArtist.artist,
+              localArtist.cutout,
+              localArtist.id,
+              localArtist.likes,
+              localArtist.popularity
+            );
+            addHistoryItem(
+              localArtist.artist,
+              localArtist.cutout,
+              localArtist.id,
+              localArtist.likes,
+              localArtist.popularity
+            );
+          "
+        >
+          <q-item-section avatar>
+            <q-avatar size="lg">
+              <img v-if="localArtist.cutout.length" :src="localArtist.cutout" />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section class="text-white">{{
+            localArtist.artist
+          }}</q-item-section>
+        </q-item>
+      </div>
+    </router-link>
 
     <q-dialog
       v-model="searchDialog"
@@ -76,7 +116,14 @@
                       artist.id,
                       artist.followers.total,
                       artist.popularity
-                    )
+                    );
+                    addHistoryItem(
+                      artist.name,
+                      artist.images[0].url,
+                      artist.id,
+                      artist.followers.total,
+                      artist.popularity
+                    );
                   "
                 >
                   <q-item-section avatar>
@@ -204,6 +251,7 @@ export default {
       artistsSearchResults: [],
       searchIndicator: false,
       noInternetConn: true,
+      localHistory: [],
     };
   },
   methods: {
@@ -242,8 +290,32 @@ export default {
         this.noInternetConn = result ? true : false;
       }, 30000);
     },
+    checkLocalStorage: function () {
+      if (!localStorage.getItem("localHistory")) {
+        // localStorage.setItem("localHistory", JSON.stringify([]));
+        console.log("no local history, creating database");
+        localStorage.setItem("localHistory", JSON.stringify([]));
+      } else {
+        console.log("local history exists, filling localHistory");
+        this.localHistory = JSON.parse(localStorage.getItem("localHistory"));
+      }
+    },
+    addHistoryItem: function (artist, cutout, id, likes, popularity) {
+      const found = this.localHistory.find((item) => item.id === id);
+      if (!found) {
+        localStorage.setItem(
+          "localHistory",
+          JSON.stringify([
+            ...this.localHistory,
+            { artist, cutout, id, likes, popularity },
+          ])
+        );
+        this.localHistory = JSON.parse(localStorage.getItem("localHistory"));
+      }
+    },
   },
   mounted() {
+    this.checkLocalStorage();
     this.checkInternet();
     setInterval(() => {
       this.checkInternet();
