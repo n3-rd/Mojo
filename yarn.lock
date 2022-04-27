@@ -4393,6 +4393,11 @@
     "loader-utils" "^2.0.0"
     "schema-utils" "^3.0.0"
 
+"numeral@^2.0.6", "numeral@>=2":
+  "integrity" "sha1-StCAk21EPCVhrtnyGX7//iX05QY="
+  "resolved" "https://registry.npmjs.org/numeral/-/numeral-2.0.6.tgz"
+  "version" "2.0.6"
+
 "object-is@^1.0.1":
   "integrity" "sha512-3cyDsyHgtmi7I7DfSSI2LDp6SK2lwvtbg0p0R1e0RvTqF5ceGx+K2dfSjm1bKDMVCFEDAQvy+o8c6a7VujOddw=="
   "resolved" "https://registry.npmjs.org/object-is/-/object-is-1.1.5.tgz"
@@ -5962,6 +5967,11 @@
     "hash-sum" "^2.0.0"
     "loader-utils" "^2.0.0"
 
+"vue-numerals@^4.0.6":
+  "integrity" "sha512-MT/Qi2vPrN6xhYrQoEct7blDxZ1+BIHhuDq2GuFvCNgegj6dsc7mrtgaet+h70CLYqJffONsgdOcmJC1Lrsx5Q=="
+  "resolved" "https://registry.npmjs.org/vue-numerals/-/vue-numerals-4.0.6.tgz"
+  "version" "4.0.6"
+
 "vue-online-prop@^1.0.1":
   "integrity" "sha512-kh7B3rFXEvrMkVxDBBqiKsFhpGjOqpOEkC4UPEqjqHLfDYT3GtncnyKL1kRWby4Qi3bT2aerrQje7wPQ5g6Uew=="
   "resolved" "https://registry.npmjs.org/vue-online-prop/-/vue-online-prop-1.0.1.tgz"
@@ -5982,7 +5992,7 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
-"vue@^3.0.0", "vue@^3.2.0", "vue@^3.2.29", "vue@3.2.31":
+"vue@^3.0.0", "vue@^3.0.0-rc.9", "vue@^3.2.0", "vue@^3.2.29", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"

@@ -27,7 +27,7 @@
 
           <div class="col-sm-12 col-md-6 artist-details-grid">
             <div class="artist-stats text-white q-my-lg">
-              <div class="row justify-center">
+              <div class="row justify-center text-center q-px-lg">
                 <div class="col-6">
                   <span class="artist-likes">
                     <q-icon name="favorite" size="xl" color="pink" />
