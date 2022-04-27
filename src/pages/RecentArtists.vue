@@ -286,7 +286,7 @@ export default {
       const checkOnlineStatus = async () => {
         try {
           const online = await fetch(
-            "https://n3rd-last-fm-api.glitch.me/getStatus"
+            "https://theaudiodb.com/api/v1/json/2/search.php?s=coldplay"
           );
           return online.status >= 200 && online.status < 300; // either true or false
         } catch (err) {
@@ -336,10 +336,7 @@ export default {
   },
   mounted() {
     this.checkLocalStorage();
-    // this.checkInternet();
-    // setInterval(() => {
-    //   this.checkInternet();
-    // }, 30000);
+    this.checkInternet();
   },
 };
 </script>
