@@ -20,13 +20,6 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "PageIndex",
-});
-</script>
 <style lang="scss">
 .welcome-text {
   color: #f2f2f2;
@@ -45,3 +38,30 @@ export default defineComponent({
   }
 }
 </style>
+
+<script>
+import { defineComponent } from "vue";
+
+export default {
+  name: "PageIndex",
+  methods: {
+    nextPage() {
+      this.$router.push("/recentArtists");
+    },
+    checkUser: function () {
+      // check if user is using the app for the first time
+      // if so, redirect to the welcome page
+      if (!localStorage.getItem("user")) {
+        console.log("first time user!");
+        localStorage.setItem("user", "true");
+      } else {
+        console.log("not first time user!");
+        this.nextPage();
+      }
+    },
+  },
+  mounted() {
+    this.checkUser();
+  },
+};
+</script>
