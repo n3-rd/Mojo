@@ -336,10 +336,10 @@ export default {
   },
   mounted() {
     this.checkLocalStorage();
-    this.checkInternet();
-    setInterval(() => {
-      this.checkInternet();
-    }, 30000);
+    // this.checkInternet();
+    // setInterval(() => {
+    //   this.checkInternet();
+    // }, 30000);
   },
 };
 </script>
