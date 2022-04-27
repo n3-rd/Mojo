@@ -2,6 +2,15 @@
   <div>
     <q-toolbar class="text-white font-regular">
       <q-toolbar-title class="title q-ml-md"> Recent Artists </q-toolbar-title>
+      <!-- add a bin icon -->
+      <q-btn
+        icon="delete"
+        label="clear history"
+        flat
+        dense
+        color="red"
+        @click="clearHistory"
+      />
     </q-toolbar>
 
     <div class="empty text-center" v-if="localHistory.length == 0">
@@ -305,13 +314,24 @@ export default {
       if (!found) {
         localStorage.setItem(
           "localHistory",
+          // place at the beginning of the array
           JSON.stringify([
+            {
+              artist: artist,
+              cutout: cutout,
+              id: id,
+              likes: likes,
+              popularity: popularity,
+            },
             ...this.localHistory,
-            { artist, cutout, id, likes, popularity },
           ])
         );
         this.localHistory = JSON.parse(localStorage.getItem("localHistory"));
       }
+    },
+    clearHistory: function () {
+      localStorage.removeItem("localHistory");
+      this.localHistory = [];
     },
   },
   mounted() {
