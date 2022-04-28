@@ -166,10 +166,28 @@
         @click="this.searchDialog = true"
       />
     </div>
+    <div class="absolute-bottom-right ph-badge">
+      <a
+        href="https://www.producthunt.com/posts/mojo-music?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-mojo&#0045;music"
+        target="_blank"
+        ><img
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=344204&theme=dark"
+          alt="Mojo&#0032;Music - A&#0032;web&#0032;app&#0032;that&#0032;helps&#0032;you&#0032;know&#0032;your&#0032;artists&#0032;and&#0032;their&#0032;music | Product Hunt"
+          width="250"
+          height="54"
+      /></a>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+// mobile breakpoint
+@media only screen and (max-width: 600px) {
+  #q-app > div > div.absolute-bottom-right.ph-badge > a > img {
+    width: 217px;
+    height: 39px;
+  }
+}
 .search-trigger-button {
   width: 100%;
   .button {
