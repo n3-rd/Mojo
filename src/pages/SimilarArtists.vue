@@ -326,32 +326,18 @@ export default {
       Howler.stop();
       this.playing = false;
     },
+    checkIfStaleData() {
+      if (!localStorage.getItem("localArtist")) {
+        this.$router.push("/");
+      }
+    },
   },
   mounted() {
     this.getArtistBio();
     this.getSimilarArtists();
     this.getArtistTracks();
-    // }, 2000);
+    this.checkIfStaleData();
   },
-  updated() {
-    // check if sound is playing
-    // if (Howler.playing()) {
-    //   this.playing = true;
-    // } else {
-    //   this.playing = false;
-    // }
-    // check if tab is emmiting audio
-    // if (Howler.mute()) {
-    //   this.playing = false;
-    // } else {
-    //   this.playing = true;
-    // }
-    // check if tab is emmiting audio with vanilla javascript
-    // if (document.hasFocus()) {
-    //   this.playing = true;
-    // } else {
-    //   this.playing = false;
-    // }
-  },
+  updated() {},
 };
 </script>
