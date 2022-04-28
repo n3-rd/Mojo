@@ -88,6 +88,7 @@
                 v-model="ArtistSearchtext"
                 color="text-main"
                 :input-style="{ color: '#f2f2f2' }"
+                @keyup.enter="searchArtist"
               />
             </div>
             <div class="col-2">
