@@ -49,8 +49,11 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 ### Rules
 
 DO NOT:
+
 Use this project to do drugs,
+
 Support terrorism with this project,
+
 Troll People with this project
 
 ---
