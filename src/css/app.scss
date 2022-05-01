@@ -37,7 +37,7 @@ $font-bold: dmsansBold;
 }
 body {
   background-color: #191919;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 a {
   text-decoration: none;
@@ -51,4 +51,8 @@ a {
 }
 .bg-bgblack {
   background-color: #191919;
+}
+
+:root {
+  --q-primary: #e8c44b;
 }

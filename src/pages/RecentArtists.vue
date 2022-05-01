@@ -87,6 +87,7 @@
                 dark
                 v-model="ArtistSearchtext"
                 color="text-main"
+                autofocus
                 :input-style="{ color: '#f2f2f2' }"
                 @keyup.enter="searchArtist"
               />
@@ -174,8 +175,7 @@
         ><img
           src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=344204&theme=dark"
           alt="Mojo&#0032;Music - A&#0032;web&#0032;app&#0032;that&#0032;helps&#0032;you&#0032;know&#0032;your&#0032;artists&#0032;and&#0032;their&#0032;music | Product Hunt"
-          width="250"
-          height="54"
+          style="width: 150px; height: 38px"
       /></a>
     </div>
   </div>
