@@ -156,7 +156,7 @@
       </q-card>
     </q-dialog>
 
-    <div class="search-trigger-button absolute-bottom-left q-mb-xl">
+    <div class="search-trigger-button fixed-bottom-left q-mb-xl">
       <q-btn
         class="button"
         color="brand"
@@ -167,7 +167,7 @@
         @click="this.searchDialog = true"
       />
     </div>
-    <div class="absolute-bottom-right ph-badge">
+    <div class="fixed-bottom-right ph-badge">
       <a
         href="https://www.producthunt.com/posts/mojo-music?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-mojo&#0045;music"
         target="_blank"
