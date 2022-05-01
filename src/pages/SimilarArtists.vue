@@ -253,6 +253,7 @@ export default {
       playing: false,
       playingDialog: true,
       localPlayingSongName: localStorage.getItem("localPlayingSongName"),
+      localHistory: [],
     };
   },
   methods: {
@@ -285,6 +286,14 @@ export default {
           this.localArtistId = data.id;
           this.localArtistLikes = data.followers.total;
           this.localArtistPopularity = data.popularity;
+
+          this.addHistoryItem(
+            data.name,
+            data.images[0].url,
+            data.id,
+            data.followers.total,
+            data.popularity
+          );
 
           this.$forceUpdate();
           this.getSimilarArtists();
@@ -331,12 +340,43 @@ export default {
         this.$router.push("/");
       }
     },
+    checkLocalStorage: function () {
+      if (!localStorage.getItem("localHistory")) {
+        // localStorage.setItem("localHistory", JSON.stringify([]));
+        console.log("no local history, creating database");
+        localStorage.setItem("localHistory", JSON.stringify([]));
+      } else {
+        console.log("local history exists, filling localHistory");
+        this.localHistory = JSON.parse(localStorage.getItem("localHistory"));
+      }
+    },
+    addHistoryItem: function (artist, cutout, id, likes, popularity) {
+      const found = this.localHistory.find((item) => item.id === id);
+      if (!found) {
+        localStorage.setItem(
+          "localHistory",
+          // place at the beginning of the array
+          JSON.stringify([
+            {
+              artist: artist,
+              cutout: cutout,
+              id: id,
+              likes: likes,
+              popularity: popularity,
+            },
+            ...this.localHistory,
+          ])
+        );
+        this.localHistory = JSON.parse(localStorage.getItem("localHistory"));
+      }
+    },
   },
   mounted() {
     this.getArtistBio();
     this.getSimilarArtists();
     this.getArtistTracks();
     this.checkIfStaleData();
+    this.checkLocalStorage();
   },
   updated() {},
 };
