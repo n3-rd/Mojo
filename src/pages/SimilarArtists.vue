@@ -238,6 +238,24 @@
 
 <script>
 import { Howl, Howler } from "howler";
+import { useMeta } from "quasar";
+
+const metaData = {
+  meta: {
+    description: {
+      name: "description",
+      content: `Bio and music of musician: ${localStorage.getItem(
+        "artistName"
+      )} and similar artists - Mojo Music`,
+    },
+    keywords: {
+      name: "keywords",
+      content: `${localStorage.getItem(
+        "artistName"
+      )}, Mojo Music, Music, Artist`,
+    },
+  },
+};
 
 export default {
   data() {
@@ -372,12 +390,29 @@ export default {
     },
   },
   mounted() {
+    useMeta(metaData);
     this.getArtistBio();
     this.getSimilarArtists();
     this.getArtistTracks();
     this.checkIfStaleData();
     this.checkLocalStorage();
   },
-  updated() {},
+  updated() {
+    useMeta(metaData);
+  },
 };
+</script>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-695TLNK355"
+></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag("js", new Date());
+
+gtag("config", "G-695TLNK355");
 </script>
